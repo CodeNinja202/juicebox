@@ -13,6 +13,21 @@ async function getAllUsers() {
   return rows;
 }
 
+// in db/index.js
+
+
+async function createUser({ username, password }) {
+  try {
+    const result = await client.query(`
+      INSERT INTO users(username, password)
+      VALUES ($1, $2);
+    `, [username, password]);
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
 
 
 
@@ -21,4 +36,6 @@ async function getAllUsers() {
 module.exports = {
   client,
   getAllUsers,
+  createUser,
+ 
 }

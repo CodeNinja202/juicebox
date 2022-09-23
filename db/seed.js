@@ -3,7 +3,9 @@ const { client, getAllUsers, createUser, updateUser } = require("./index");
 async function dropTables() {
   try {
     console.log("Starting to drop tables...");
-
+    await client.query(`
+    DROP TABLE IF EXISTS posts;
+  `);
     await client.query(`
       DROP TABLE IF EXISTS users;
     `);
@@ -18,8 +20,13 @@ async function dropTables() {
 async function createTables() {
   try {
     console.log("Starting to build tables...");
+    
+   
+
+ 
 
     await client.query(`
+
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username varchar(255) UNIQUE NOT NULL,
@@ -29,7 +36,24 @@ location VARCHAR(255) NOT NULL,
 active BOOLEAN DEFAULT true
       
       )
+
     `);
+
+
+    await client.query(`
+
+  
+    CREATE TABLE posts (
+      id SERIAL PRIMARY KEY,
+      "authorId" INTEGER REFERENCES users(id) NOT NULL,
+      title VARCHAR(255) NOT NULL,
+      content TEXT NOT NULL,
+      active BOOLEAN DEFAULT true
+    
+    )
+
+  `);
+   
 
     console.log("Finished building tables!");
   } catch (error) {

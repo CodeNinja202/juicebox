@@ -1,24 +1,4 @@
-
-const {
-  client,
-  getAllUsers,
-  createUser,
-} = require('./index');
-
-async function createInitialUsers() {
-  try {
-    console.log("Starting to create users...");
-    
-    const albert = await createUser({ username: 'albert', password: 'bertie99' });
-    const albertTwo = await createUser({ username: 'albert', password: 'imposter_albert' });
-    console.log(albert);
-
-    console.log("Finished creating users!");
-  } catch(error) {
-    console.error("Error creating users!");
-    throw error;
-  }
-}
+const { client, getAllUsers, createUser } = require("./index");
 
 async function dropTables() {
   try {
@@ -43,13 +23,32 @@ async function createTables() {
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username varchar(255) UNIQUE NOT NULL,
-        password varchar(255) NOT NULL
-      );
+        password varchar(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+location VARCHAR(255) NOT NULL,
+active BOOLEAN DEFAULT true
+      
+      )
     `);
 
     console.log("Finished building tables!");
   } catch (error) {
     console.error("Error building tables!");
+    throw error;
+  }
+}
+
+async function createInitialUsers() {
+  try {
+    console.log("Starting to create users...");
+
+    await createUser({ username: "albert", password: "bertie99", name:'', location:'' });
+    await createUser({ username: "sandra", password: "2sandy4me", name:'', location:''  });
+    await createUser({ username: "glamgal", password: "soglam", name:'', location:''  });
+
+    console.log("Finished creating users!");
+  } catch (error) {
+    console.error("Error creating users!");
     throw error;
   }
 }
@@ -79,7 +78,6 @@ async function testDB() {
     throw error;
   }
 }
-
 
 rebuildDB()
   .then(testDB)

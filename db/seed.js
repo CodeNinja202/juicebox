@@ -185,14 +185,14 @@ async function testDB() {
 
     console.log("Calling getAllUsers");
     const users = await getAllUsers();
-    console.log("Result:", users);
+   console.log("Result:", users);
 
     console.log("Calling updateUser on users[0]");
     const updateUserResult = await updateUser(users[0].id, {
       name: "Newname Sogood",
       location: "Lesterville, KY",
     });
-   console.log("Result:", updateUserResult);
+  console.log("Result:", updateUserResult);
 
     console.log("Calling getAllPosts");
     const posts = await getAllPosts();
@@ -206,6 +206,8 @@ async function testDB() {
       content: "Updated Content",
     });
    console.log("Result:", updatePostResult);
+
+
    console.log("Calling updatePost on posts[1], only updating tags");
    const updatePostTagsResult = await updatePost(posts[1].id, {
      tags: ["#youcandoanything", "#redfish", "#bluefish"]

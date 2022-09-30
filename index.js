@@ -1,13 +1,16 @@
+require('dotenv').config();
+
 const express = require('express');
 const server = express();
 const apiRouter = require('./api');
 const PORT = 3000;
+server.use(express.json())
 server.use('/api', apiRouter);
 
 const morgan = require('morgan');
 server.use(morgan('dev'));
 
-server.use(express.json())
+
 
 server.use((req, res, next) => {
     console.log("<____Body Logger START____>");

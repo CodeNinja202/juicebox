@@ -106,7 +106,7 @@ async function getUserByUsername(username) {
   authorId,
   title,
   content,
-  tags = [] // this is new
+  tags = [] 
 }) {
   try {
     const { rows: [ post ] } = await client.query(`
@@ -309,7 +309,8 @@ async function getPostById(postId) {
 
     post.tags = tags;
     post.author = author;
-
+   console.log(post)
+   
     delete post.authorId;
 
     return post;

@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 const apiRouter = require('./api');
-const { PORT = 3000 } = process.env
+
 server.use(express.json())
 server.use('/api', apiRouter);
 
@@ -38,6 +38,7 @@ server.use((req, res, next) => {
 
   const { client } = require('./db');
   client.connect();
+  const { PORT = 3000 } = process.env
 server.listen(PORT, () => {
     console.log('The server is up on port', PORT)
   });

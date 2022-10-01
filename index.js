@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 const apiRouter = require('./api');
-const PORT = 3000;
+const { PORT = 3000 } = process.env
 server.use(express.json())
 server.use('/api', apiRouter);
 
@@ -19,7 +19,18 @@ server.use((req, res, next) => {
   
     next();
   });
-
+  // server.get('/background/:color', (req, res, next) => {
+  //   res.send(`
+  //     <body style="background: ${ req.params.color };">
+  //       <h1>Hello World</h1>
+  //     </body>
+  //   `);
+  // });
+  // server.get('/add/:first/to/:second', (req, res, next) => {
+  //   res.send(`<h1>${ req.params.first } + ${ req.params.second } = ${
+  //     Number(req.params.first) + Number(req.params.second)
+  //    }</h1>`);
+  // });
   
   server.post('/api/users/register', () => {});
   server.post('/api/users/login', () => {});
